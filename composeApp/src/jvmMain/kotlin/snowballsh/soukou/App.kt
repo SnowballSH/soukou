@@ -17,7 +17,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import soukou.composeapp.generated.resources.Res
 import soukou.composeapp.generated.resources.compose_multiplatform
-import snowballsh.soukou.core.Greeter
 import snowballsh.soukou.core.music.PitchAnalysis
 import snowballsh.soukou.core.music.analyzeReferenceTone
 import kotlin.math.roundToInt
@@ -27,7 +26,6 @@ import kotlin.math.roundToInt
 fun App() {
     MaterialTheme {
         var analysis by remember { mutableStateOf<PitchAnalysis?>(null) }
-        val greeting = remember { Greeter().greet("Compose") }
         Column(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primaryContainer)
@@ -43,7 +41,7 @@ fun App() {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Image(painterResource(Res.drawable.compose_multiplatform), null)
-                Text("Core: $greeting")
+                Text("Hello, World!")
                 if (analysis == null) {
                     Text("Press the button to analyse a generated A4 tone.")
                 } else {
