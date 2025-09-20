@@ -9,6 +9,9 @@ kotlin {
         commonMain.dependencies {
             // No external deps yet
         }
+        jvmMain.dependencies {
+            implementation(libs.tarsosdsp)
+        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }

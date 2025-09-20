@@ -1,6 +1,5 @@
 package snowballsh.soukou
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -18,13 +17,15 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import soukou.composeapp.generated.resources.Res
 import soukou.composeapp.generated.resources.compose_multiplatform
-import snowballsh.soukou.core.Greeter
+import snowballsh.soukou.core.music.PitchAnalysis
+import snowballsh.soukou.core.music.analyzeReferenceTone
+import kotlin.math.roundToInt
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
+        var analysis by remember { mutableStateOf<PitchAnalysis?>(null) }
         Column(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primaryContainer)
@@ -32,17 +33,26 @@ fun App() {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
+            Button(onClick = { analysis = analyzeReferenceTone() }) {
+                Text("Analyze reference tone")
             }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeter().greet("Compose") }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Core: $greeting")
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Image(painterResource(Res.drawable.compose_multiplatform), null)
+                Text("Hello, World!")
+                if (analysis == null) {
+                    Text("Press the button to analyse a generated A4 tone.")
+                } else {
+                    val result = analysis!!
+                    val pitchText = result.averagePitchHz?.let { "${it.roundToInt()} Hz" } ?: "No stable pitch detected"
+                    val probabilityPercent = (result.averageProbability * 100).roundToInt().coerceIn(0, 100)
+                    Text("Estimated pitch: $pitchText")
+                    Text("Detections: ${result.detectionCount}, confidence ≈ $probabilityPercent%")
+                    Text(
+                        if (result.hasReliablePitch) "Pitch detection is confident." else "Pitch detection was inconclusive."
+                    )
                 }
             }
         }
