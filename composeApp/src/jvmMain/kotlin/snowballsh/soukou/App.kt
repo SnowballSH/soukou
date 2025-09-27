@@ -19,11 +19,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import snowballsh.soukou.core.music.AudioCoroutineController
-import snowballsh.soukou.core.music.AudioFrame
-import snowballsh.soukou.core.music.AudioManager
-import snowballsh.soukou.core.music.AudioProps
-import snowballsh.soukou.core.music.loadAudioProps
+import snowballsh.soukou.core.music.*
 import java.awt.FileDialog
 import java.awt.Frame
 import java.io.File
@@ -183,12 +179,12 @@ fun App() {
             audioProps?.let { ap ->
                 Column(Modifier.widthIn(max = 600.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     row("File", ap.file.name)
-                    row("Encoding", ap.encoding)
-                    row("Sample rate (Hz)", ap.sampleRateHz.toString())
-                    row("Sample size (bits)", ap.sampleSizeBits.toString())
-                    row("Channels", ap.channels.toString())
-                    row("Frame rate (Hz)", ap.frameRateHz.toString())
-                    row("Frame size (bytes)", ap.frameSizeBytes.toString())
+//                    row("Encoding", ap.encoding)
+//                    row("Sample rate (Hz)", ap.sampleRateHz.toString())
+//                    row("Sample size (bits)", ap.sampleSizeBits.toString())
+//                    row("Channels", ap.channels.toString())
+//                    row("Frame rate (Hz)", ap.frameRateHz.toString())
+//                    row("Frame size (bytes)", ap.frameSizeBytes.toString())
                 }
             }
 
@@ -206,7 +202,7 @@ fun App() {
                         transient = f.transient,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(220.dp)
+                            .height(400.dp)
                     )
 
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
