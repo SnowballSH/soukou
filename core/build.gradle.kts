@@ -6,14 +6,9 @@ kotlin {
     jvm()
 
     sourceSets {
-        commonMain.dependencies {
-            // No external deps yet
-        }
         jvmMain.dependencies {
             implementation(libs.tarsosdsp)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutinesCore)
         }
         jvmTest.dependencies {
             implementation(libs.kotlin.testJunit)
@@ -21,4 +16,3 @@ kotlin {
         }
     }
 }
-
